@@ -1,0 +1,169 @@
+Preparations:
+-------------
+- shell with larger font, on elitebook: livecoding
+
+- make prompt shorter: enter PS1='\u:\W\$ ' and press enter. Format: desiree:folder $
+-> or if you want it green: PS1='\e[0;32m\u:\W \e[m\$
+
+- open web browser lesson: 	https://swcarpentry.github.io/git-novice/01-basics.html
+- and code of conduct: 	https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html
+
+- distribute sticky notes
+
+- white/ blackboard set up -> alternatively, a shared notepad, for example: https://pad.carpentries.org/2023-09-19-git
+
+Tricks
+--
+clear shell without deleting: ctrl+L
+force remove git repos with rm -rf ....
+
+
+
+Welcome:
+--------
+Hello
+This course is about
+Introduce instructors and helpers
+Practical info: - fire exits
+		- toilets, power plugs
+		- schedule (break ca. every hour)
+		- code of conduct: welcoming, respectful, community focus, 
+				   constructive feedback, possibility to report incidents
+		- sticky notes
+
+
+
+1. Automated version control (5'):
+--------------------
+- COMIC: we all know it: a mess with many different versions of a file, 
+		revert changes, 
+		delete accidents, 
+		collaborators with different changes...
+		
+- solution: think changes as separate from the document itself! -> IMAGES
+
+- variants: autosave each single added letter as in some web docs (like google docs)
+
+- git: not automated, you explicitly save versions / changes
+
+REVIEW: Question to answer: what is version control and why should I use it?
+_______________________________________________________________________________________
+
+
+
+2. Setting up git (5')
+-----------------
+Question to answer: How do I get set up to use git? 
+
+- Tell git who we are and what our preferences are
+- always the same pattern: WHITE BOARD -> git verb options
+
+QUESTION: How familiar are you with UNIX shell commands? Stickies - very complicated vs. quite OK
+
+git config --global user.name "Vlad Dracula"    ### use your own
+git config --global user.email "desiree.treichler@geo.uio.no"   ### same sa GitHub!
+
+QUESTION: why --global?
+
+____________________
+
+- Line endings "character" differ for windows/linux/mac: I have windows at work but linux on servers and home
+
+git config --global core.autocrlf input   ### mac/linux
+git config --global core.autocrlf true    ### windows
+
+
+- Set text editor - I stick with nano (default) but LOOK AT THE LIST, anyone a recommendation?
+
+- Set default branch as main (was previously "master") - matches GitHub
+git config --global init.defaultBranch main
+
+____________________
+
+- Review settings:
+git config --global --edit    ### in the actual file - beware of typos!
+git config --list             ### just show a list in the terminal, safer!
+
+
+- Getting help - there are also some more tricks on the lesson page
+git config -h   	### on a specific command
+git config --help   	### more extensive manual
+git help 		### general help
+
+
+REVIEW: We told git who we are and our preferences, using git config with --global option
+_______________________________________________________________________________________
+
+
+
+3. Creating a repository (10')
+-----------------------
+Where does git store information?
+
+Story: Wolfman and Dracula investigate whether they can send a planetary lander to mars -> IMAGE
+
+____________________
+
+- Get to the right place and make a new folder for your git repository
+cd ~			### go to your home folder
+pwd			### OPTIONAL - print working directory (where you are)
+cd Desktop
+mkdir planets		### make new directory called planets
+cd planets		### if participants very new: check on explorer whether directory is there
+
+- make this a git repository
+git init		### initialise, 
+
+- check contents
+ls
+ls -a 			### "all" - also hidden files/folders
+
+QUESTION: what do you think is in the .git directory?
+The .git subdirectory stores all changes and tracking information, if deleted, we lose our history!
+____________________
+
+- Start working on our main branch "main:
+git checkout -b main	### remember settings: main=main branch
+
+- Check whether everything is set up correctly:
+git status
+
+
+REVIEW: We made a git repository with git init and checked that everything is fine with git status.
+EXERCISES: 5' to think about, discuss together (before/after break?)
+_______________________________________________________________________________________
+
+
+
+4. Tracking changes (20')
+-------------------
+How do I record changes, notes about the changes, and check the status?
+
+- Recap where we are
+cd ~/Desktop/planets
+
+
+
+
+
+5. Exploring history (25')
+---------------------------
+Identify old versions of files, review changes, and revert/recover?
+
+
+6. Ignoring things (5')
+--------------------------
+Tell git to ignore files I don't want to track?
+
+
+
+
+
+
+
+
+After:
+-------
+- feedback on sticky notes
+- post-workshop survey
+
