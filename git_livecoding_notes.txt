@@ -130,7 +130,7 @@ git status
 
 
 REVIEW: We made a git repository with git init and checked that everything is fine with git status.
-EXERCISES: 5' to think about, discuss together (before/after break?)
+EXERCISES: 5' to think about, WORK IN PAIRS? -> discuss together (before/after break?)
 _______________________________________________________________________________________
 
 
@@ -143,6 +143,90 @@ How do I record changes, notes about the changes, and check the status?
 cd ~/Desktop/planets
 
 
+- Make a new file with some text. Use any editor you like instead of nano.
+nano mars.txt   --> Cold and dry, but everything is my favourite colour
+
+- check:
+ls		### shows the files in the folder
+cat mars.txt	### shows the content
+git status	### What is the git status now?
+
+QUESTION: what is different to before? What should we do?
+____________________
+
+- Track (changes) in this file and see what happens:
+git add mars.txt
+git status	### different to before?
+
+
+QUESTION: are these changes already saved? show IMAGE of STAGING AREA
+
+- Commit/save changes:
+git commit -m "Start notes on Mars as a base" 	### save those changes, with a comment labelled to it
+git status
+git log 	### what happened?
+
+QUESTION: Where are my changes stored?
+
+
+- Do this again
+nano mars.txt   -> The two moons may be a problem for Wolfman
+cat mars.txt
+git status
+
+QUESTION: Why isn't there anything to commit now? Can I see what has changed?
+
+____________________
+
+- See what has changed since the last saved state
+git diff	
+### tells us: the two files, their unique labels, file names again, summary of changes, actual changed text
+
+- save this
+git commit 	### QUESTION: not working, why?
+git add mars.txt
+git commit -m "Add concers about effects of Mars' moons on Wolfman"
+
+____________________
+- Add more text and see how it moves across the staging area:
+nano mars.txt ---> But the Mummy will appreciate the lack of humidity
+git diff	### the + shows that we have added a line
+git add mars.txt
+git diff	### QUESTION: why is there nothing? Also saved with add only, but without commit label
+git diff --staged  ### Difference between actually saved and staged, same as above
+git commit -m "Discuss concerns about Mars' climate for Mummy"
+git status
+git log		### shows the full history of all commits/snapshots
+
+
+REVIEW: We used git status to check, git add to stage, and git commit to save with a message
+EXERCISES: Best work in PAIRS!
+- Choosing a commit message, 
+- Committing changes to git. 
+Sticky if finished. You can also look at the others and the grey boxes with bonus info. (5', then discuss)
+_______________________________________________________________________________________
+Bonus:
+- discuss exercise solutions and clarify questions
+
+Additional questions and solutions:
+- Does git track directories? / commit multiple files
+No, only the files in it, but you can add all files in one dir together:
+mkdir spaceships
+git status
+git add spaceships
+git status
+touch spaceships/apollo11 spaceships/sputnik1    ### 'touch' makes these files (empty)
+git add spaceships   ### OR: git add spaceships/apollo11 spaceships/sputnik1
+git status
+
+- What if I change some words in-line? Easier visible with git diff mars.txt --color-words
+nano mars.txt  ---> Change some words
+git diff mars.txt --color-words
+
+
+- What if I have very long logs? Pager takes over the shell, press space to move down or q to quit
+				Limit with git log -5
+_______________________________________________________________________________________
 
 
 
@@ -150,15 +234,85 @@ cd ~/Desktop/planets
 ---------------------------
 Identify old versions of files, review changes, and revert/recover?
 
+- Exploring history is always in relation to our HEAD. 
+- Add more text to mars to have a bit more to look at:
+nano mars.txt     --> an ill-considered change
+
+- Compare to our HEAD
+git diff HEAD mars.txt	### QUESTION: Is this the same or different as git diff mars.txt without HEAD?
+git diff HEAD~1 mars.txt	### NOW it's different!
+git diff HEAD~3 mars.txt	### We can go further back
+
+- There is also the comment 'show':
+git show HEAD~3 mars.txt	### QUESTION: Show us the - file, or the changes, what do you think?
+
+- All the commits have unique identifier labels, we can also use these instead of HEAD:
+git diff asødoifyvpaiebyvslkubvlsakfhbla mars.txt	### not very convenient
+git diff a2s4d67 mars.txt	### usually the first 7 chars for a normal-sized project
+____________________
+
+- Back to now, we have unsaved changes:
+git status     
+cat mars.txt   ### QUESTION: how can we rever them and go back to how things were before?
+git checkout HEAD mars.txt	### QUESTION reminder: the HEAD is the last committed version!
+cat mars.txt	### Compare the texts, the newest line has disappeared
+
+- We can also go several versions back 
+git checkout a2s4d67 mars.txt     ### thatæs HEAD~3
+cat mars.txt			### QUESTION: Is this saved? 
+git status		### Not committed, but in the staging area! If you don't want to reset:
+git checkout HEAD mars.txt	### back to HEAD!
+
+
+
+REVIEW: We used git diff to show differences, and checkout to revert changes.
+EXERCISES:  
+- RECOVERING OLDER VERSIONS OF A FILE
+- UNDERSTANDING WORKFLOW AND HISTORY
+Sticky if finished. You can also look at the others and the grey boxes with bonus info. (ca. 15', then discuss)
+_______________________________________________________________________________________
+Bonus for discussion:
+
+- Detached HEAD
+QUESTION: what happens if we forget to specify the file?
+git checkout a2s4d67	### Look around, but don't make changes, it will screw up things
+git checkout main	### Go back to where you were
+
+- Getting rid of staged changes: What if we already added the changes to stage? Solution:
+git reset HEAD mars.txt
+
+
+
 
 6. Ignoring things (5')
 --------------------------
 Tell git to ignore files I don't want to track?
 
+- Make some files that you don't want to track - for me, these could be large datasets or figures output by my script:
+mkdir results
+touch a.dat b.dat c.dat results/a.out results/b.out
+git status	### they show up. What now?
+
+- We can tell git that certain files should be ignored:
+nano .gitignore		---> *.dat   results/   ### everything with .dat file ending, everything in results/ dir
+git status	### QUESTION: what changed?
+
+QUESTION: Do I need to track .gitignore or not?
+git add .gitignore
+git commit -m "Ignore data and result files"
+git status
+
+QUESTION: What if I try to add a.dat nevertheless?
+git add a.dat   ### git warns us!
+
+Check what we ignore:
+git status --ignored ### "normal" status - plus what is ignored
 
 
-
-
+REVIEW: We created a .gitignore file to avoid tracking some files
+EXERCISES:  
+- Choose two. Sticky if you feel on top of it. (ca. 5', then discuss questions)
+_______________________________________________________________________________________
 
 
 
